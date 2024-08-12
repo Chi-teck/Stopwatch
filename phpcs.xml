@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<ruleset name="Stopwatch">
+  <description>phpcs configuration for Stopwatch library</description>
+  <arg name="colors"/>
+  <file>./src</file>
+  <file>./tests</file>
+</ruleset>
