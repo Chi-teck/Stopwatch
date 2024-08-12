@@ -13,16 +13,13 @@ use ChiTeck\Stopwatch\Data\Report;
  *
  * Can be used to store into php://stdout, remote and local files, etc.
  */
-final class Stream implements DumperInterface
+final readonly class Stream implements DumperInterface
 {
-    /**
-     * @param string $stream
-     */
+
     public function __construct(
-        private readonly FormatterInterface $formatter,
+        private FormatterInterface $formatter,
         private string $stream,
-    ) {
-    }
+    ) {}
 
     /**
      * {@inheritdoc}

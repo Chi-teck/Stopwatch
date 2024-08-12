@@ -17,7 +17,7 @@ final readonly class Json implements FormatterInterface
      */
     public function format(Report $report): string
     {
-        return \json_encode($report, \JSON_PRETTY_PRINT | \JSON_UNESCAPED_UNICODE);
+        return \json_encode($report, \JSON_PRETTY_PRINT | \JSON_UNESCAPED_UNICODE | \JSON_THROW_ON_ERROR);
     }
 
 }

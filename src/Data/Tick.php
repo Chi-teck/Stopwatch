@@ -13,6 +13,15 @@ final readonly class Tick
         public string $name,
         public int|float $timestamp,
         public int $memory,
+        /**
+         * @var array{
+         *     function: string,
+         *     line?: int,
+         *     file?: string,
+         *     class?: class-string,
+         *     type?: '->'|'::'
+         * } $location
+         */
         public array $location,
         public mixed $data,
     ) {

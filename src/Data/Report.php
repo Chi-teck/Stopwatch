@@ -14,7 +14,7 @@ final readonly class Report
      */
     public function __construct(
         public Context $context,
-        /* @var \ChiTeck\Stopwatch\Data\Tick [] */
+        /** @var \ChiTeck\Stopwatch\Data\Tick[] $ticks */
         public array $ticks = [],
     ) {
     }
