@@ -32,11 +32,11 @@ final readonly class Html extends AbstractFormatter
 
             $rows[] = <<< HTML
                 <tr>
-                    <td>$name</td>
-                    <td>$timestamp</td>
-                    <td>$increment</td>
-                    <td>$memory</td>
-                    <td>$location</td>
+                    <td>{$name}</td>
+                    <td>{$timestamp}</td>
+                    <td>{$increment}</td>
+                    <td>{$memory}</td>
+                    <td>{$location}</td>
                 </tr>
                 HTML;
         }
@@ -47,60 +47,59 @@ final readonly class Html extends AbstractFormatter
         $date = $report->context->createdAt->format(\DateTimeInterface::ATOM);
 
         return <<< HTML
-      <style>
-        .sw-report__summary {
-          font-size: 0.85em;
-          margin-bottom: 0.5em;;
-        }
-        .sw-report table {
-          border-collapse: collapse;
-        }
-        .sw-report th {
-          text-align: center;
-        }
-        .sw-report__label {
-          font-weight: bold;
-        }
-        .sw-report__label:after {
-          content: ':';
-        }
-        .sw-report td:not(:first-child):not(:last-child) {
-          text-align: right;
-        }
-        .sw-report :where(th, td) {
-          border: solid 1px;
-          padding: 0.5em;
-        }
-      </style>
-      <div class="sw-report">
-        <div class="sw-report__summary">
-          <div class="sw-report__item">
-            <span class="sw-report__label">ID</span>
-            <span class="sw-report__value">$id</span>
-          </div>
-          <div class="sw-report__item">
-            <span class="sw-report__label">Title</span>
-            <span class="sw-report__value">$title</span>
-          </div>
-          <div class="sw-report__item">
-            <span class="sw-report__label">Date</span>
-            <span class="sw-report__value">$date</span>
-          </div>
-        </div>
-        <table class="sw-report__ticks">
-          <thead>
-            <tr>
-            <th>Tick</th>
-            <th>Timestamp, ms</th>
-            <th>Increment, ms</th>
-            <th>Memory, MB</th>
-            <th>Location</th>
-          </tr>
-          </thead>
-            <tbody>$tbody</tbody>
-        </table>
-      </div>
-      HTML;
+            <style>
+              .sw-report__summary {
+                font-size: 0.85em;
+                margin-bottom: 0.5em;;
+              }
+              .sw-report table {
+                border-collapse: collapse;
+              }
+              .sw-report th {
+                text-align: center;
+              }
+              .sw-report__label {
+                font-weight: bold;
+              }
+              .sw-report__label:after {
+                content: ':';
+              }
+              .sw-report td:not(:first-child):not(:last-child) {
+                text-align: right;
+              }
+              .sw-report :where(th, td) {
+                border: solid 1px;
+                padding: 0.5em;
+              }
+            </style>
+            <div class="sw-report">
+              <div class="sw-report__summary">
+                <div class="sw-report__item">
+                  <span class="sw-report__label">ID</span>
+                  <span class="sw-report__value">{$id}</span>
+                </div>
+                <div class="sw-report__item">
+                  <span class="sw-report__label">Title</span>
+                  <span class="sw-report__value">{$title}</span>
+                </div>
+                <div class="sw-report__item">
+                  <span class="sw-report__label">Date</span>
+                  <span class="sw-report__value">{$date}</span>
+                </div>
+              </div>
+              <table class="sw-report__ticks">
+                <thead>
+                  <tr>
+                  <th>Tick</th>
+                  <th>Timestamp, ms</th>
+                  <th>Increment, ms</th>
+                  <th>Memory, MB</th>
+                  <th>Location</th>
+                </tr>
+                </thead>
+                  <tbody>{$tbody}</tbody>
+              </table>
+            </div>
+            HTML;
     }
-
 }

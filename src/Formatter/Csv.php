@@ -20,7 +20,7 @@ final readonly class Csv implements FormatterInterface
         $fp = \fopen('php://temp', 'r+');
         \assert(\is_resource($fp));
         $origin = $report->ticks[0]->timestamp;
-        foreach ($report->ticks as $delta =>  $tick) {
+        foreach ($report->ticks as $delta => $tick) {
             $lap = $delta > 0 ? ($tick->timestamp - $report->ticks[$delta - 1]->timestamp) : 0;
             $row = [
                 \mb_substr($tick->name, 0, 64),
@@ -31,8 +31,8 @@ final readonly class Csv implements FormatterInterface
             \fputcsv($fp, $row);
         }
         \rewind($fp);
+
         // @phpstan-ignore-next-line
         return \stream_get_contents($fp);
     }
-
 }

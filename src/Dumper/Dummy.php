@@ -15,7 +15,8 @@ final class Dummy implements DumperInterface
     /**
      * {@inheritdoc}
      */
-    public function dump(Report $report): void {
+    public function dump(Report $report): void
+    {
         // Intentionally empty.
     }
 }

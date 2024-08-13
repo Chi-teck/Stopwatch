@@ -36,12 +36,12 @@ final readonly class Text extends AbstractFormatter
         }
 
         $column_widths = \array_map(
-            static fn(int $index): int => \max(\array_map('mb_strlen', \array_column($rows, $index))),
+            static fn (int $index): int => \max(\array_map('mb_strlen', \array_column($rows, $index))),
             \range(0, 4),
         );
 
         $hr = static function (string $prefix, string $line, string $suffix) use ($column_widths): string {
-            return  $prefix . \str_repeat('─', \array_sum($column_widths) + 14) . $suffix . \PHP_EOL;
+            return $prefix . \str_repeat('─', \array_sum($column_widths) + 14) . $suffix . \PHP_EOL;
         };
 
         $format_row = static function (array $row, int $pad_type) use ($column_widths): string {
@@ -54,6 +54,7 @@ final readonly class Text extends AbstractFormatter
                 \str_pad($row[4], $column_widths[4], ' '),
                 '',
             ];
+
             return \trim(\implode(' │ ', $stub));
         };
 
@@ -66,11 +67,11 @@ final readonly class Text extends AbstractFormatter
             if ($delta === 1) {
                 $output .= $hr('├', '─', '┤');
             }
-            $pad_type = $delta === 0? \STR_PAD_BOTH : \STR_PAD_LEFT;
+            $pad_type = $delta === 0 ? \STR_PAD_BOTH : \STR_PAD_LEFT;
             $output .= $format_row($row, $pad_type) . \PHP_EOL;
         }
         $output .= $hr('└', '─', '┘');
+
         return $output;
     }
-
 }

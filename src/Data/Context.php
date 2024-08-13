@@ -29,5 +29,4 @@ final readonly class Context implements \JsonSerializable
             'createdAt' => $this->createdAt->format(\DateTimeInterface::ATOM),
         ];
     }
-
 }

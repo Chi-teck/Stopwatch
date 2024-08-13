@@ -15,5 +15,4 @@ interface DumperInterface
      * {@selfdoc}
      */
     public function dump(Report $report): void;
-
 }

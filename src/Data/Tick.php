@@ -11,7 +11,7 @@ final readonly class Tick
 {
     public function __construct(
         public string $name,
-        public int|float $timestamp,
+        public float|int $timestamp,
         public int $memory,
         /**
          * @var array{
@@ -24,7 +24,5 @@ final readonly class Tick
          */
         public array $location,
         public mixed $data,
-    ) {
-    }
-
+    ) {}
 }

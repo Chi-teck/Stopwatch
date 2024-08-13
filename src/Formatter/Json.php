@@ -12,7 +12,6 @@ use ChiTeck\Stopwatch\Data\Report;
  */
 final readonly class Json implements FormatterInterface
 {
-
     /**
      * {@selfdoc}
      */
@@ -20,5 +19,4 @@ final readonly class Json implements FormatterInterface
     {
         return \json_encode($report, \JSON_PRETTY_PRINT | \JSON_UNESCAPED_UNICODE | \JSON_THROW_ON_ERROR);
     }
-
 }

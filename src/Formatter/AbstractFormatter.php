@@ -28,7 +28,7 @@ abstract readonly class AbstractFormatter implements FormatterInterface
     {
         return \sprintf(
             '%s:%d %s%s%s()',
-            \substr($location['file'] ?? '', strlen($_SERVER['DOCUMENT_ROOT'])),
+            \substr($location['file'] ?? '', \strlen($_SERVER['DOCUMENT_ROOT'])),
             $location['line'] ?? '',
             $location['class'] ?? '',
             $location['type'] ?? '',

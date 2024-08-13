@@ -36,11 +36,23 @@ final class Stopwatch
     }
 
     /**
+     * {@selfdoc}
+     */
+    public function __destruct()
+    {
+        $this->tick('__destruct');
+        if ($this->options->autoDump) {
+            $this->dump();
+        }
+    }
+
+    /**
      * Creates a stopwatch instance with default configuration.
      */
     public static function create(): self
     {
         $formatter = \PHP_SAPI === 'cli' ? new Formatter\Text() : new Formatter\Html();
+
         return new self(
             dumper: new Dumper\Stream($formatter, 'php://output'),
             options: new Options(),
@@ -50,12 +62,17 @@ final class Stopwatch
     /**
      * {@selfdoc}
      */
-    public function __destruct()
+    public static function set(self $stopwatch): self
     {
-        $this->tick('__destruct');
-        if ($this->options->autoDump) {
-            $this->dump();
-        }
+        return self::$instance = $stopwatch;
+    }
+
+    /**
+     * {@selfdoc}
+     */
+    public static function get(): self
+    {
+        return self::$instance ?? throw new \LogicException('The stopwatch is not configured yet.');
     }
 
     /**
@@ -78,22 +95,6 @@ final class Stopwatch
     /**
      * {@selfdoc}
      */
-    public static function set(Stopwatch $stopwatch): self
-    {
-        return self::$instance = $stopwatch;
-    }
-
-    /**
-     * {@selfdoc}
-     */
-    public static function get(): self
-    {
-        return self::$instance ?? throw new \LogicException('The stopwatch is not configured yet.');
-    }
-
-    /**
-     * {@selfdoc}
-     */
     public function getReport(): Report
     {
         $label = \PHP_SAPI === 'cli' ?
@@ -104,6 +105,7 @@ final class Stopwatch
             label: $label,
             createdAt: new \DateTimeImmutable(),
         );
+
         return new Report($context, $this->ticks);
     }
 
@@ -114,5 +116,4 @@ final class Stopwatch
     {
         $this->dumper->dump($this->getReport());
     }
-
 }

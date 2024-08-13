@@ -15,7 +15,5 @@ final readonly class Options
     public function __construct(
         public bool $autoDump = false,
         public bool $verbose = true,
-    ) {
-    }
-
+    ) {}
 }

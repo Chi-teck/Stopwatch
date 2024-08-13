@@ -15,6 +15,4 @@ interface FormatterInterface
      * {@selfdoc}
      */
     public function format(Report $report): string;
-
-
 }
