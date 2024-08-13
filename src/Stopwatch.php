@@ -47,35 +47,6 @@ final class Stopwatch
     }
 
     /**
-     * Creates a stopwatch instance with default configuration.
-     */
-    public static function create(): self
-    {
-        $formatter = \PHP_SAPI === 'cli' ? new Formatter\Text() : new Formatter\Html();
-
-        return new self(
-            dumper: new Dumper\File($formatter, 'php://output'),
-            options: new Options(),
-        );
-    }
-
-    /**
-     * {@selfdoc}
-     */
-    public static function set(self $stopwatch): self
-    {
-        return self::$instance = $stopwatch;
-    }
-
-    /**
-     * {@selfdoc}
-     */
-    public static function get(): self
-    {
-        return self::$instance ?? throw new \LogicException('The stopwatch is not configured yet.');
-    }
-
-    /**
      * Registers a new tick.
      */
     public function tick(string $name = '', mixed $data = null): void
@@ -115,5 +86,34 @@ final class Stopwatch
     public function dump(): void
     {
         $this->dumper->dump($this->getReport());
+    }
+
+    /**
+     * Creates a stopwatch instance with default configuration.
+     */
+    public static function create(): self
+    {
+        $formatter = \PHP_SAPI === 'cli' ? new Formatter\Text() : new Formatter\Html();
+
+        return new self(
+            dumper: new Dumper\File($formatter, 'php://output'),
+            options: new Options(),
+        );
+    }
+
+    /**
+     * {@selfdoc}
+     */
+    public static function set(self $stopwatch): self
+    {
+        return self::$instance = $stopwatch;
+    }
+
+    /**
+     * {@selfdoc}
+     */
+    public static function get(): self
+    {
+        return self::$instance ?? throw new \LogicException('The stopwatch is not configured yet.');
     }
 }

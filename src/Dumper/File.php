@@ -29,6 +29,9 @@ final readonly class File implements DumperInterface
     public function dump(Report $report): void
     {
         $output = $this->formatter->format($report);
-        \file_put_contents($this->filename, $output);
+        $result = @\file_put_contents($this->filename, $output);
+        if ($result === false) {
+            throw new \RuntimeException(\sprintf('Could not write to %s file', $this->filename));
+        }
     }
 }
