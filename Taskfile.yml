@@ -9,6 +9,12 @@ tasks:
     cmds:
       - task --list
 
+  label:
+    vars:
+      label: '{{default "TASK" .label}}'
+    cmd: echo -e "\n\e[0;94m 🚩 {{.label}}\e[0m"
+    silent: true
+
   fix:
     desc: 'Fixes code style issues.'
     cmd: 'vendor/bin/php-cs-fixer fix -v {{.CLI_ARGS}}'
@@ -34,7 +40,15 @@ tasks:
   test:
     desc: 'Runs PHP code sniffer.'
     cmds:
+      - task: label
+        vars: { label: Composer validate }
       - task: composer-validate
+      - task: label
+        vars: { label: Lint }
       - task: lint
+      - task: label
+        vars: { label: PHPStan }
       - task: phpstan
+      - task: label
+        vars: { label: PHPUnit }
       - task: phpunit

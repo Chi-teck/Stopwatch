@@ -54,7 +54,7 @@ final class Stopwatch
         $formatter = \PHP_SAPI === 'cli' ? new Formatter\Text() : new Formatter\Html();
 
         return new self(
-            dumper: new Dumper\Stream($formatter, 'php://output'),
+            dumper: new Dumper\File($formatter, 'php://output'),
             options: new Options(),
         );
     }
