@@ -49,4 +49,4 @@ jobs:
         run: task phpstan
 
       - name: PHPUnit
-        run: task phpunity
+        run: task phpunit
