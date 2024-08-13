@@ -12,18 +12,12 @@
             "Tests\\ChiTeck\\Stopwatch\\": "tests/src"
         }
     },
-    "authors": [
-        {
-            "name": "me"
-        }
-    ],
     "require": {
-        "ext-mbstring": "*",
-        "phpstan/phpstan-deprecation-rules": "^1.2",
-        "phpstan/phpstan-strict-rules": "^1.6"
+        "ext-mbstring": "*"
     },
     "require-dev": {
         "phpstan/phpstan": "^1.11",
+        "phpstan/phpstan-strict-rules": "^1.6",
         "friendsofphp/php-cs-fixer": "^3.62",
         "phpunit/phpunit": "^11.3"
     }
