@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\ChiTeck\Stopwatch;
+namespace Tests\ChiTeck\Stopwatch\Data;
 
 use ChiTeck\Stopwatch\Data\Context;
 use PHPUnit\Framework\TestCase;
@@ -12,7 +12,6 @@ use PHPUnit\Framework\TestCase;
  */
 final class ContextTest extends TestCase
 {
-
     /**
      * {@selfdoc}
      */

@@ -8,10 +8,11 @@ use ChiTeck\Stopwatch\Contract\FormatterInterface;
 use ChiTeck\Stopwatch\Data\Report;
 
 /**
- * Formats Stopwatch report as encoded JSON.
+ * Formats Stopwatch report as JSON document.
  */
 final readonly class Json implements FormatterInterface
 {
+
     /**
      * {@selfdoc}
      */

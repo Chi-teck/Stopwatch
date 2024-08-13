@@ -11,7 +11,6 @@ use ChiTeck\Stopwatch\Contract\FormatterInterface;
  */
 abstract readonly class AbstractFormatter implements FormatterInterface
 {
-
     /**
      * Formats backtrace element location.
      *
@@ -28,7 +27,7 @@ abstract readonly class AbstractFormatter implements FormatterInterface
     final protected static function formatLocation(array $location): string
     {
         return \sprintf(
-            '%s[%d]:%s%s%s()',
+            '%s:%d %s%s%s()',
             \substr($location['file'] ?? '', strlen($_SERVER['DOCUMENT_ROOT'])),
             $location['line'] ?? '',
             $location['class'] ?? '',
@@ -36,5 +35,4 @@ abstract readonly class AbstractFormatter implements FormatterInterface
             $location['function'] ?? '',
         );
     }
-
 }

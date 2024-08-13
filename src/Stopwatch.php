@@ -100,15 +100,11 @@ final class Stopwatch
           \implode(' ', [\PHP_BINARY, $_SERVER['PHP_SELF'], ...$_SERVER['argv']]) :
           $_SERVER['REQUEST_METHOD'] . ' ' . $_SERVER['REQUEST_URI'];
         $context = new Context(
-            id: uniqid(),
+            id: \uniqid(),
             label: $label,
             createdAt: new \DateTimeImmutable(),
         );
-
-        return new Report(
-            context: $context,
-            ticks: $this->ticks,
-        );
+        return new Report($context, $this->ticks);
     }
 
     /**

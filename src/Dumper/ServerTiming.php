@@ -23,5 +23,4 @@ final class ServerTiming implements DumperInterface
             \header(\sprintf($template, $tick->name, $tick->timestamp - $origin, $tick->memory), false);
         }
     }
-
 }

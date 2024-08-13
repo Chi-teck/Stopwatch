@@ -31,14 +31,14 @@ final readonly class Html extends AbstractFormatter
             $location = self::formatLocation($tick->location);
 
             $rows[] = <<< HTML
-        <tr>
-          <td>$name</td>
-          <td>$timestamp</td>
-          <td>$increment</td>
-          <td>$memory</td>
-          <td>$location</td>
-        </tr>
-        HTML;
+                <tr>
+                    <td>$name</td>
+                    <td>$timestamp</td>
+                    <td>$increment</td>
+                    <td>$memory</td>
+                    <td>$location</td>
+                </tr>
+                HTML;
         }
         $tbody = \implode("\n", $rows);
 

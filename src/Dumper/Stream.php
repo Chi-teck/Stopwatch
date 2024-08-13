@@ -11,11 +11,10 @@ use ChiTeck\Stopwatch\Data\Report;
 /**
  * Dumps report to any stream resource
  *
- * Can be used to store into php://stdout, remote and local files, etc.
+ * Can be used to store into php://stderr, remote and local files, etc.
  */
 final readonly class Stream implements DumperInterface
 {
-
     public function __construct(
         private FormatterInterface $formatter,
         private string $stream,
@@ -29,5 +28,4 @@ final readonly class Stream implements DumperInterface
         $output = $this->formatter->format($report);
         \file_put_contents($this->stream, $output);
     }
-
 }

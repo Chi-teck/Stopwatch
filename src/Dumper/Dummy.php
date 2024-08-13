@@ -18,5 +18,4 @@ final class Dummy implements DumperInterface
     public function dump(Report $report): void {
         // Intentionally empty.
     }
-
 }
