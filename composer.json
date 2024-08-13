@@ -1,5 +1,7 @@
 {
     "name": "chi-teck/stopwatch",
+    "description": "A tool for benchmarking and profiling PHP code.",
+    "license": "MIT",
     "autoload": {
         "psr-4": {
             "ChiTeck\\Stopwatch\\": "src/"

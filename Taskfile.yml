@@ -1,0 +1,40 @@
+version: '3'
+
+vars:
+  PHP: php
+
+tasks:
+
+  default:
+    cmds:
+      - task --list
+
+  fix:
+    desc: 'Fixes code style issues.'
+    cmd: 'vendor/bin/php-cs-fixer fix -v {{.CLI_ARGS}}'
+
+  composer-validate:
+    desc: 'Performs composer validation.'
+    cmds:
+      - 'composer validate --strict'
+      - 'composer check-platform-req'
+
+  lint:
+    desc: 'Checks the comply with code style rules.'
+    cmd: 'vendor/bin/php-cs-fixer check -v --diff {{.CLI_ARGS}}'
+
+  phpstan:
+    desc: 'Analyses source code'
+    cmd: 'vendor/bin/phpstan analyze {{.CLI_ARGS}}'
+
+  phpunit:
+    desc: 'Runs Unit tests'
+    cmd: 'vendor/bin/phpunit {{.CLI_ARGS}}'
+
+  test:
+    desc: 'Runs PHP code sniffer.'
+    cmds:
+      - task: composer-validate
+      - task: lint
+      - task: phpstan
+      - task: phpunit

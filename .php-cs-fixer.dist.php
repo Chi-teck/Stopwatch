@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use PhpCsFixer\Runner\Parallel\ParallelConfig;
+
 $finder = (new PhpCsFixer\Finder())
     ->in(__DIR__ . '/src')
     ->in(__DIR__ . '/tests');
@@ -58,4 +60,5 @@ return (new PhpCsFixer\Config())
     ->setRiskyAllowed(true)
     ->setCacheFile(__DIR__ . '/var/' . \basename(__FILE__, '.dist.php') . '.cache')
     ->setRules($rules)
+    ->setParallelConfig(new ParallelConfig(4))
     ->setFinder($finder);
