@@ -10,7 +10,7 @@ use ChiTeck\Stopwatch\Data\Report;
 /**
  * Provides a null implementation for report dumper.
  */
-final class Dummy implements DumperInterface
+final readonly class Dummy implements DumperInterface
 {
     /**
      * {@inheritdoc}

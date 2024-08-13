@@ -9,9 +9,9 @@ use ChiTeck\Stopwatch\Contract\FormatterInterface;
 use ChiTeck\Stopwatch\Data\Report;
 
 /**
- * Dumps report to any stream resource
+ * Dumps report to a file.
  *
- * Can be used to store data into local files, IO streams like (php://stdout), etc.
+ * Can be used to store data into local files, streams like (php://stdout), etc.
  */
 final readonly class File implements DumperInterface
 {

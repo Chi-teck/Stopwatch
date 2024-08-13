@@ -10,7 +10,7 @@ use ChiTeck\Stopwatch\Data\Report;
 /**
  * Provides a Server-Dumping implementation for report dumper.
  */
-final class ServerTiming implements DumperInterface
+final readonly class ServerTiming implements DumperInterface
 {
     /**
      * {@inheritdoc}
