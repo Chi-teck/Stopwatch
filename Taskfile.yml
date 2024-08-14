@@ -27,7 +27,9 @@ tasks:
 
   lint:
     desc: 'Checks the comply with code style rules.'
-    cmd: 'vendor/bin/php-cs-fixer check -v --diff {{.CLI_ARGS}}'
+    cmds:
+      - 'php -l src/*.php src/*/*.php tests/src/*/*.php'
+      - 'vendor/bin/php-cs-fixer check -v --diff {{.CLI_ARGS}}'
 
   phpstan:
     desc: 'Analyses source code'

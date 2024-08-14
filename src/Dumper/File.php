@@ -21,6 +21,7 @@ final readonly class File implements DumperInterface
     public function __construct(
         private FormatterInterface $formatter,
         private string $filename,
+        private bool $append = true
     ) {}
 
     /**
@@ -28,8 +29,8 @@ final readonly class File implements DumperInterface
      */
     public function dump(Report $report): void
     {
-        $output = $this->formatter->format($report);
-        $result = @\file_put_contents($this->filename, $output);
+        $output = $this->formatter->format($report) . \PHP_EOL;
+        $result = @\file_put_contents($this->filename, $output, $this->append ? \FILE_APPEND : 0);
         if ($result === false) {
             throw new \RuntimeException(\sprintf('Could not write to %s file', $this->filename));
         }

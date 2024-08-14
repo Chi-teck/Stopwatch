@@ -5,12 +5,11 @@ declare(strict_types=1);
 namespace Tests\ChiTeck\Stopwatch\Dumper;
 
 use ChiTeck\Stopwatch\Contract\FormatterInterface;
-use ChiTeck\Stopwatch\Data\Context;
 use ChiTeck\Stopwatch\Data\Report;
-use ChiTeck\Stopwatch\Data\Tick;
 use ChiTeck\Stopwatch\Dumper\File;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
+use Tests\ChiTeck\Stopwatch\Fixture\ReportSet;
 
 /**
  * {@selfdoc}
@@ -25,10 +24,20 @@ final class FileTest extends TestCase
     {
         $filename = self::getFilename();
         self::assertFileDoesNotExist($filename);
-        $dumper = new File(self::buildFormatter(), $filename);
 
-        $dumper->dump(self::buildReport());
-        self::assertSame('889e5be91835a2ed060de4a3cf079e00', \file_get_contents($filename));
+        // append = true
+        $dumper = new File(self::buildFormatter(), $filename, true);
+        $dumper->dump(ReportSet::ALPHA->build());
+        self::assertSame(ReportSet::ALPHA->hash() . \PHP_EOL, \file_get_contents($filename));
+        $dumper->dump(ReportSet::BETA->build());
+        self::assertSame(ReportSet::ALPHA->hash() . \PHP_EOL . ReportSet::BETA->hash() . \PHP_EOL, \file_get_contents($filename));
+
+        // append = false
+        $dumper = new File(self::buildFormatter(), $filename, false);
+        $dumper->dump(ReportSet::ALPHA->build());
+        self::assertSame(ReportSet::ALPHA->hash() . \PHP_EOL, \file_get_contents($filename));
+        $dumper->dump(ReportSet::BETA->build());
+        self::assertSame(ReportSet::BETA->hash() . \PHP_EOL, \file_get_contents($filename));
     }
 
     /**
@@ -39,7 +48,7 @@ final class FileTest extends TestCase
         $dumper = new File(self::buildFormatter(), 'wrong_scheme://filename');
 
         self::expectExceptionObject(new \RuntimeException('Could not write to wrong_scheme://filename file'));
-        $dumper->dump(self::buildReport());
+        $dumper->dump(ReportSet::ALPHA->build());
     }
 
     /**
@@ -58,7 +67,7 @@ final class FileTest extends TestCase
      */
     private static function getFilename(): string
     {
-        return \sys_get_temp_dir() . '/stopwatch_test_' . $_SERVER['REQUEST_TIME_FLOAT'] . '.json';
+        return \sys_get_temp_dir() . '/stopwatch_test_' . $_SERVER['REQUEST_TIME_FLOAT'];
     }
 
     /**
@@ -72,23 +81,5 @@ final class FileTest extends TestCase
                 return \md5(\print_r($report, true));
             }
         };
-    }
-
-    /**
-     * {@selfdoc}
-     */
-    private static function buildReport(): Report
-    {
-        $location = [
-            'file' => 'example.php',
-            'line' => 10,
-            'function' => 'example',
-            'class' => __CLASS__,
-            'type' => '->',
-        ];
-        return new Report(
-            new Context('123', 'Test', new \DateTimeImmutable('2024-04-12')),
-            [new Tick('Tick #1', 12345, 123, $location, ['abc'])],
-        );
     }
 }

@@ -15,8 +15,15 @@ final readonly class Json implements FormatterInterface
     /**
      * {@selfdoc}
      */
+    public function __construct(
+        private int $options = \JSON_PRETTY_PRINT | \JSON_UNESCAPED_UNICODE,
+    ) {}
+
+    /**
+     * {@selfdoc}
+     */
     public function format(Report $report): string
     {
-        return \json_encode($report, \JSON_PRETTY_PRINT | \JSON_UNESCAPED_UNICODE | \JSON_THROW_ON_ERROR);
+        return \json_encode($report, $this->options | \JSON_THROW_ON_ERROR);
     }
 }
