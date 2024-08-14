@@ -16,7 +16,7 @@ final readonly class Json implements FormatterInterface
      * {@selfdoc}
      */
     public function __construct(
-        private int $options = \JSON_PRETTY_PRINT | \JSON_UNESCAPED_UNICODE,
+        private int $options = \JSON_PRETTY_PRINT | \JSON_UNESCAPED_UNICODE | \JSON_UNESCAPED_SLASHES,
     ) {}
 
     /**

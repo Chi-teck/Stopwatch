@@ -40,7 +40,7 @@ enum ReportSet
             ),
             self::GAMMA => new Report(
                 new Context('103', 'Gamma', new \DateTimeImmutable('2024-04-12 03:00')),
-                [new Tick('Tick #1', 12345, 123, $location, [])],
+                [new Tick('Tick #1', 12345, 123, $location, ['Кириллица'])],
             ),
         };
     }
