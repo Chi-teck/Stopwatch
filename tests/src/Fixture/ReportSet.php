@@ -16,6 +16,7 @@ enum ReportSet
     case ALPHA;
     case BETA;
     case GAMMA;
+    case DELTA;
 
     /**
      * {@selfdoc}
@@ -32,15 +33,23 @@ enum ReportSet
         return match ($this) {
             self::ALPHA => new Report(
                 new Context('101', 'Alpha', new \DateTimeImmutable('2024-04-12 01:00')),
-                [new Tick('Tick #1', 12345, 123, $location, [])],
+                [new Tick('Tick #1', 12_345, 123, $location, [])],
             ),
             self::BETA => new Report(
                 new Context('102', 'Beta', new \DateTimeImmutable('2024-04-12 02:00')),
-                [new Tick('Tick #1', 12345, 123, $location, ['abc'])],
+                [
+                    new Tick('Tick #1', 10_000, 1_000, $location, ['abc']),
+                    new Tick('Tick #2', 20_000, 2_000, $location, []),
+                    new Tick('Tick #3', 30_000, 3_000, $location, ['def']),
+                ],
             ),
             self::GAMMA => new Report(
                 new Context('103', 'Gamma', new \DateTimeImmutable('2024-04-12 03:00')),
-                [new Tick('Tick #1', 12345, 123, $location, ['Кириллица'])],
+                [new Tick('Tick #1', 12_345, 123, $location, ['Кириллица'])],
+            ),
+            self::DELTA => new Report(
+                new Context('104', 'Delta', new \DateTimeImmutable('2024-04-12 04:00')),
+                [],
             ),
         };
     }
@@ -52,8 +61,9 @@ enum ReportSet
     {
         return match ($this) {
             self::ALPHA => 'b18b0e98ff0fa9a06ca91cc2c82e419d',
-            self::BETA => '9dac51dbc472a9019ceabbebb85b2988',
+            self::BETA => '1af6809ef47844c7ead44f8f65edf0ff',
             self::GAMMA => 'fe13f014b4871c474e74322e5ecc0dbd',
+            self::DELTA => 'fe13f014b4871c474e74322e5ecc0dbd',
         };
     }
 }

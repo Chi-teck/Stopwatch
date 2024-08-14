@@ -22,7 +22,7 @@ final class JsonTest extends TestCase
      * {@selfdoc}
      */
     #[Test]
-    #[DataProvider('formatterData')]
+    #[DataProvider('formatterDataProvider')]
     public function formatter(Report $report, int $options, string $expected_result): void
     {
         $formatter = new Json($options);
@@ -34,7 +34,7 @@ final class JsonTest extends TestCase
     /**
      * {@selfdoc}
      */
-    public static function formatterData(): \Generator
+    public static function formatterDataProvider(): \Generator
     {
         yield [
             ReportSet::GAMMA->build(),
@@ -44,7 +44,7 @@ final class JsonTest extends TestCase
 
         yield [
             ReportSet::GAMMA->build(),
-            \JSON_PRETTY_PRINT | \JSON_UNESCAPED_SLASHES,
+            \JSON_PRETTY_PRINT,
             <<< 'JSON'
                 {
                     "context": {
@@ -77,6 +77,12 @@ final class JsonTest extends TestCase
             ReportSet::GAMMA->build(),
             \JSON_UNESCAPED_UNICODE,
             '{"context":{"id":"103","label":"Gamma","createdAt":"2024-04-12T03:00:00+00:00"},"ticks":[{"name":"Tick #1","timestamp":12345,"memory":123,"location":{"file":"example.php","line":10,"function":"example","class":"Tests\\\ChiTeck\\\Stopwatch\\\Fixture\\\ReportSet","type":"->"},"data":["Кириллица"]}]}',
+        ];
+
+        yield [
+            ReportSet::DELTA->build(),
+            0,
+            '{"context":{"id":"104","label":"Delta","createdAt":"2024-04-12T04:00:00+00:00"},"ticks":[]}',
         ];
     }
 }
