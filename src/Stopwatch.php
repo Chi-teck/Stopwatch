@@ -6,7 +6,6 @@ namespace ChiTeck\Stopwatch;
 
 use ChiTeck\Stopwatch\Contract\DumperInterface;
 use ChiTeck\Stopwatch\Data\Context;
-use ChiTeck\Stopwatch\Data\Options;
 use ChiTeck\Stopwatch\Data\Report;
 use ChiTeck\Stopwatch\Data\Tick;
 
@@ -30,21 +29,7 @@ final class Stopwatch
      */
     public function __construct(
         private readonly DumperInterface $dumper,
-        private readonly Options $options,
-    ) {
-        $this->tick('__construct');
-    }
-
-    /**
-     * {@selfdoc}
-     */
-    public function __destruct()
-    {
-        $this->tick('__destruct');
-        if ($this->options->autoDump) {
-            $this->dump();
-        }
-    }
+    ) {}
 
     /**
      * Registers a new tick.
@@ -53,7 +38,6 @@ final class Stopwatch
     {
         $backtrace = \debug_backtrace(\DEBUG_BACKTRACE_IGNORE_ARGS);
         $index = \count($backtrace) > 1 ? 1 : 0;
-
         $this->ticks[] = new Tick(
             name: $name,
             timestamp: \hrtime(true) / 1_000_000,
@@ -76,7 +60,6 @@ final class Stopwatch
             label: $label,
             createdAt: new \DateTimeImmutable(),
         );
-
         return new Report($context, $this->ticks);
     }
 
@@ -94,10 +77,8 @@ final class Stopwatch
     public static function create(): self
     {
         $formatter = \PHP_SAPI === 'cli' ? new Formatter\Text() : new Formatter\Html();
-
         return new self(
-            dumper: new Dumper\File($formatter, 'php://output'),
-            options: new Options(),
+            new Dumper\File($formatter, 'php://output'),
         );
     }
 
