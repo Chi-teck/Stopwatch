@@ -58,10 +58,9 @@ final class FileTest extends TestCase
     /**
      * {@selfdoc}
      */
-    public function _testException(): void
+    public function testException(): void
     {
         $dumper = new File(self::buildFormatter(), 'wrong_scheme://filename');
-
         self::expectExceptionObject(new \RuntimeException('Could not write to wrong_scheme://filename file'));
         $dumper->dump(ReportSet::ALPHA->get());
     }

@@ -45,7 +45,7 @@ final class Stopwatch
             timestamp: \hrtime(true) / 1_000_000,
             memory: \memory_get_usage(),
             location: $backtrace[$index],
-            data: $data,
+            context: $data,
         );
     }
 

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace ChiTeck\Stopwatch\Data;
 
 /**
- * A data structure to represent profile results.
+ * A context structure to represent profile results.
  */
 final readonly class Report implements \JsonSerializable
 {

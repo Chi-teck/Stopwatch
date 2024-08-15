@@ -23,6 +23,6 @@ final readonly class Tick
          * } $location
          */
         public array $location,
-        public mixed $data,
+        public mixed $context,
     ) {}
 }

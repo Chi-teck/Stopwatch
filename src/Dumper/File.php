@@ -11,7 +11,7 @@ use ChiTeck\Stopwatch\Data\Report;
 /**
  * Dumps report to a file.
  *
- * Can be used to store data into local files, streams like (php://stdout), etc.
+ * Can be used to store context into local files, streams like (php://stdout), etc.
  */
 final readonly class File implements DumperInterface
 {

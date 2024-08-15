@@ -39,7 +39,7 @@ final class JsonTest extends TestCase
         yield [
             ReportSet::GAMMA->get(),
             0,
-            '{"id":"103","label":"Gamma","createdAt":"2024-04-12T03:00:00+00:00","ticks":[{"name":"Tick #1","timestamp":12345,"memory":123,"location":{"file":"example.php","line":10,"function":"example","class":"Tests\\\ChiTeck\\\Stopwatch\\\Fixture\\\ReportSet","type":"->"},"data":["\u041a\u0438\u0440\u0438\u043b\u043b\u0438\u0446\u0430"]}]}',
+            '{"id":"103","label":"Gamma","createdAt":"2024-04-12T03:00:00+00:00","ticks":[{"name":"Tick #1","timestamp":12345,"memory":123,"location":{"file":"example.php","line":10,"function":"example","class":"Tests\\\ChiTeck\\\Stopwatch\\\Fixture\\\ReportSet","type":"->"},"context":["\u041a\u0438\u0440\u0438\u043b\u043b\u0438\u0446\u0430"]}]}',
         ];
 
         yield [
@@ -62,7 +62,7 @@ final class JsonTest extends TestCase
                                 "class": "Tests\\ChiTeck\\Stopwatch\\Fixture\\ReportSet",
                                 "type": "->"
                             },
-                            "data": [
+                            "context": [
                                 "\u041a\u0438\u0440\u0438\u043b\u043b\u0438\u0446\u0430"
                             ]
                         }
@@ -74,7 +74,7 @@ final class JsonTest extends TestCase
         yield [
             ReportSet::GAMMA->get(),
             \JSON_UNESCAPED_UNICODE,
-            '{"id":"103","label":"Gamma","createdAt":"2024-04-12T03:00:00+00:00","ticks":[{"name":"Tick #1","timestamp":12345,"memory":123,"location":{"file":"example.php","line":10,"function":"example","class":"Tests\\\ChiTeck\\\Stopwatch\\\Fixture\\\ReportSet","type":"->"},"data":["Кириллица"]}]}',
+            '{"id":"103","label":"Gamma","createdAt":"2024-04-12T03:00:00+00:00","ticks":[{"name":"Tick #1","timestamp":12345,"memory":123,"location":{"file":"example.php","line":10,"function":"example","class":"Tests\\\ChiTeck\\\Stopwatch\\\Fixture\\\ReportSet","type":"->"},"context":["Кириллица"]}]}',
         ];
 
         yield [

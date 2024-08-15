@@ -27,6 +27,7 @@ $rules = [
     'nullable_type_declaration_for_default_null_value' => true,
     'php_unit_internal_class' => false,
     'blank_line_before_statement' => false,
+    'numeric_literal_separator' => true,
     'ordered_class_elements' => [
         'order' => [
             'use_trait',
