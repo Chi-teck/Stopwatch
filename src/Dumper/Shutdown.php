@@ -8,7 +8,7 @@ use ChiTeck\Stopwatch\Contract\DumperInterface;
 use ChiTeck\Stopwatch\Data\Report;
 
 /**
- * A dumper that dumps report on shutdown.
+ * Dumps the profiling report on shutdown.
  */
 final readonly class Shutdown implements DumperInterface
 {

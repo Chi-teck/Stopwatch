@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace ChiTeck\Stopwatch;
 
 use ChiTeck\Stopwatch\Contract\DumperInterface;
-use ChiTeck\Stopwatch\Data\Context;
 use ChiTeck\Stopwatch\Data\Report;
 use ChiTeck\Stopwatch\Data\Tick;
+use ChiTeck\Stopwatch\Dumper\Dummy;
 
 /**
  * A helper to profile PHP code.
@@ -28,7 +28,9 @@ final class Stopwatch
      * {@selfdoc}
      */
     public function __construct(
-        private readonly DumperInterface $dumper,
+        private readonly DumperInterface $dumper = new Dummy(),
+        // A label for the profiling report.
+        private readonly ?string $label = null,
     ) {}
 
     /**
@@ -48,23 +50,20 @@ final class Stopwatch
     }
 
     /**
-     * {@selfdoc}
+     * Returns the profiling report.
      */
     public function getReport(): Report
     {
-        $label = \PHP_SAPI === 'cli' ?
-          \implode(' ', [\PHP_BINARY, $_SERVER['PHP_SELF'], ...$_SERVER['argv']]) :
-          $_SERVER['REQUEST_METHOD'] . ' ' . $_SERVER['REQUEST_URI'];
-        $context = new Context(
+        return new Report(
             id: \uniqid(),
-            label: $label,
+            label: $this->label ?: self::getDefaultLabel(),
             createdAt: new \DateTimeImmutable(),
+            ticks: $this->ticks,
         );
-        return new Report($context, $this->ticks);
     }
 
     /**
-     * {@selfdoc}
+     * Dumps the report to a configured destination.
      */
     public function dump(): void
     {
@@ -77,13 +76,12 @@ final class Stopwatch
     public static function create(): self
     {
         $formatter = \PHP_SAPI === 'cli' ? new Formatter\Text() : new Formatter\Html();
-        return new self(
-            new Dumper\File($formatter, 'php://output'),
-        );
+        $dumper = new Dumper\File($formatter, 'php://output');
+        return new self($dumper, null);
     }
 
     /**
-     * {@selfdoc}
+     * Gets global stopwatch instances.
      */
     public static function set(self $stopwatch): self
     {
@@ -91,10 +89,19 @@ final class Stopwatch
     }
 
     /**
-     * {@selfdoc}
+     * Sets global stopwatch instance.
      */
     public static function get(): self
     {
         return self::$instance ?? throw new \LogicException('The stopwatch is not configured yet.');
+    }
+
+    /**
+     * {@selfdoc}
+     */
+    private static function getDefaultLabel(): string
+    {
+        return \PHP_SAPI === 'cli' ?
+            \implode(' ', [\PHP_BINARY, ...$_SERVER['argv']]) : $_SERVER['REQUEST_METHOD'] . ' ' . $_SERVER['REQUEST_URI'];
     }
 }

@@ -42,9 +42,9 @@ final readonly class Html extends AbstractFormatter
         }
         $tbody = \implode("\n", $rows);
 
-        $id = $report->context->id;
-        $title = $report->context->label;
-        $date = $report->context->createdAt->format(\DateTimeInterface::ATOM);
+        $id = $report->id;
+        $title = $report->label;
+        $date = $report->createdAt->format(\DateTimeInterface::ATOM);
 
         return <<< HTML
             <style>

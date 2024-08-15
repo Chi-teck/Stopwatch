@@ -37,21 +37,19 @@ final class JsonTest extends TestCase
     public static function formatterDataProvider(): \Generator
     {
         yield [
-            ReportSet::GAMMA->build(),
+            ReportSet::GAMMA->get(),
             0,
-            '{"context":{"id":"103","label":"Gamma","createdAt":"2024-04-12T03:00:00+00:00"},"ticks":[{"name":"Tick #1","timestamp":12345,"memory":123,"location":{"file":"example.php","line":10,"function":"example","class":"Tests\\\ChiTeck\\\Stopwatch\\\Fixture\\\ReportSet","type":"->"},"data":["\u041a\u0438\u0440\u0438\u043b\u043b\u0438\u0446\u0430"]}]}',
+            '{"id":"103","label":"Gamma","createdAt":"2024-04-12T03:00:00+00:00","ticks":[{"name":"Tick #1","timestamp":12345,"memory":123,"location":{"file":"example.php","line":10,"function":"example","class":"Tests\\\ChiTeck\\\Stopwatch\\\Fixture\\\ReportSet","type":"->"},"data":["\u041a\u0438\u0440\u0438\u043b\u043b\u0438\u0446\u0430"]}]}',
         ];
 
         yield [
-            ReportSet::GAMMA->build(),
+            ReportSet::GAMMA->get(),
             \JSON_PRETTY_PRINT,
             <<< 'JSON'
                 {
-                    "context": {
-                        "id": "103",
-                        "label": "Gamma",
-                        "createdAt": "2024-04-12T03:00:00+00:00"
-                    },
+                    "id": "103",
+                    "label": "Gamma",
+                    "createdAt": "2024-04-12T03:00:00+00:00",
                     "ticks": [
                         {
                             "name": "Tick #1",
@@ -74,15 +72,15 @@ final class JsonTest extends TestCase
         ];
 
         yield [
-            ReportSet::GAMMA->build(),
+            ReportSet::GAMMA->get(),
             \JSON_UNESCAPED_UNICODE,
-            '{"context":{"id":"103","label":"Gamma","createdAt":"2024-04-12T03:00:00+00:00"},"ticks":[{"name":"Tick #1","timestamp":12345,"memory":123,"location":{"file":"example.php","line":10,"function":"example","class":"Tests\\\ChiTeck\\\Stopwatch\\\Fixture\\\ReportSet","type":"->"},"data":["Кириллица"]}]}',
+            '{"id":"103","label":"Gamma","createdAt":"2024-04-12T03:00:00+00:00","ticks":[{"name":"Tick #1","timestamp":12345,"memory":123,"location":{"file":"example.php","line":10,"function":"example","class":"Tests\\\ChiTeck\\\Stopwatch\\\Fixture\\\ReportSet","type":"->"},"data":["Кириллица"]}]}',
         ];
 
         yield [
-            ReportSet::DELTA->build(),
+            ReportSet::DELTA->get(),
             0,
-            '{"context":{"id":"104","label":"Delta","createdAt":"2024-04-12T04:00:00+00:00"},"ticks":[]}',
+            '{"id":"104","label":"Delta","createdAt":"2024-04-12T04:00:00+00:00","ticks":[]}',
         ];
     }
 }

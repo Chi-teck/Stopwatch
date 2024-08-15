@@ -22,18 +22,8 @@ final readonly class Text extends AbstractFormatter
             return '';
         }
 
-        $origin = $ticks[0]->timestamp;
-        $rows[] = ['Tick', 'Timestamp, ms', 'Increment, ms', 'Memory, MB', 'Location'];
-        foreach ($ticks as $delta => $tick) {
-            $lap = $delta > 0 ? ($tick->timestamp - $ticks[$delta - 1]->timestamp) : 0;
-            $rows[] = [
-                \mb_substr($tick->name, 0, 64),
-                \number_format($tick->timestamp - $origin, 3, thousands_separator: ''),
-                \number_format($lap, 3, thousands_separator: ''),
-                \number_format($tick->memory / 1_000_000, 3, thousands_separator: ''),
-                self::formatLocation($tick->location),
-            ];
-        }
+        $headers = ['Tick', 'Timestamp, ms', 'Increment, ms', 'Memory, MB', 'Location'];
+        $rows = [$headers, ...parent::formatTicks($report->ticks)];
 
         $column_widths = \array_map(
             static fn (int $index): int => \max(\array_map('mb_strlen', \array_column($rows, $index))),
@@ -54,13 +44,12 @@ final readonly class Text extends AbstractFormatter
                 \str_pad($row[4], $column_widths[4], ' '),
                 '',
             ];
-
             return \trim(\implode(' │ ', $stub));
         };
 
-        $output = 'ID:    ' . $report->context->id . \PHP_EOL;
-        $output .= 'Label: ' . $report->context->label . \PHP_EOL;
-        $output .= 'Date:  ' . $report->context->createdAt->format(\DateTimeInterface::ATOM) . \PHP_EOL;
+        $output = 'ID:    ' . $report->id . \PHP_EOL;
+        $output .= 'Label: ' . $report->label . \PHP_EOL;
+        $output .= 'Date:  ' . $report->createdAt->format(\DateTimeInterface::ATOM) . \PHP_EOL;
 
         $output .= $hr('┌', '─', '┐');
         foreach ($rows as $delta => $row) {

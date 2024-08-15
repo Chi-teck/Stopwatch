@@ -18,11 +18,11 @@ final class CsvTest extends TestCase
     public function outputWithTicks(): void
     {
         $formatter = new Csv();
-        $output = $formatter->format(ReportSet::BETA->build());
+        $output = $formatter->format(ReportSet::BETA->get());
         $expected_output = <<< 'CSV'
-            "Tick #1",0.000,0.000,0.001
-            "Tick #2",10000.000,10000.000,0.002
-            "Tick #3",20000.000,10000.000,0.003
+            "Tick #1",0.000,0.000,0.001,"example.php:10 Tests\ChiTeck\Stopwatch\Fixture\ReportSet->example()"
+            "Tick #2",10000.000,10000.000,0.002,"example.php:10 Tests\ChiTeck\Stopwatch\Fixture\ReportSet->example()"
+            "Tick #3",20000.000,10000.000,0.003,"example.php:10 Tests\ChiTeck\Stopwatch\Fixture\ReportSet->example()"
 
             CSV;
         self::assertSame($expected_output, $output);
@@ -32,7 +32,7 @@ final class CsvTest extends TestCase
     public function outputWithoutTicks(): void
     {
         $formatter = new Csv();
-        $output = $formatter->format(ReportSet::DELTA->build());
+        $output = $formatter->format(ReportSet::DELTA->get());
         self::assertSame('', $output);
     }
 }

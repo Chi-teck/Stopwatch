@@ -9,7 +9,7 @@ use ChiTeck\Stopwatch\Contract\FormatterInterface;
 use ChiTeck\Stopwatch\Data\Report;
 
 /**
- * Dumps report to local buffer.
+ * Dumps report to a local buffer.
  */
 final class Buffered implements DumperInterface
 {

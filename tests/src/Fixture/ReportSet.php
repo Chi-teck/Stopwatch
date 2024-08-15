@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\ChiTeck\Stopwatch\Fixture;
 
-use ChiTeck\Stopwatch\Data\Context;
 use ChiTeck\Stopwatch\Data\Report;
 use ChiTeck\Stopwatch\Data\Tick;
 
@@ -21,7 +20,7 @@ enum ReportSet
     /**
      * {@selfdoc}
      */
-    public function build(): Report
+    public function get(): Report
     {
         $location = [
             'file' => 'example.php',
@@ -32,38 +31,33 @@ enum ReportSet
         ];
         return match ($this) {
             self::ALPHA => new Report(
-                new Context('101', 'Alpha', new \DateTimeImmutable('2024-04-12 01:00')),
-                [new Tick('Tick #1', 12_345, 123, $location, [])],
+                id: '101',
+                label: 'Alpha',
+                createdAt: new \DateTimeImmutable('2024-04-12 01:00'),
+                ticks: [new Tick('Tick #1', 12_345, 123, $location, [])],
             ),
             self::BETA => new Report(
-                new Context('102', 'Beta', new \DateTimeImmutable('2024-04-12 02:00')),
-                [
+                id: '102',
+                label: 'Beta',
+                createdAt: new \DateTimeImmutable('2024-04-12 02:00'),
+                ticks: [
                     new Tick('Tick #1', 10_000, 1_000, $location, ['abc']),
                     new Tick('Tick #2', 20_000, 2_000, $location, []),
                     new Tick('Tick #3', 30_000, 3_000, $location, ['def']),
                 ],
             ),
             self::GAMMA => new Report(
-                new Context('103', 'Gamma', new \DateTimeImmutable('2024-04-12 03:00')),
-                [new Tick('Tick #1', 12_345, 123, $location, ['Кириллица'])],
+                id: '103',
+                label: 'Gamma',
+                createdAt: new \DateTimeImmutable('2024-04-12 03:00'),
+                ticks: [new Tick('Tick #1', 12_345, 123, $location, ['Кириллица'])],
             ),
             self::DELTA => new Report(
-                new Context('104', 'Delta', new \DateTimeImmutable('2024-04-12 04:00')),
-                [],
+                id: '104',
+                label: 'Delta',
+                createdAt: new \DateTimeImmutable('2024-04-12 04:00'),
+                ticks: [],
             ),
-        };
-    }
-
-    /**
-     * {@selfdoc}
-     */
-    public function hash(): string
-    {
-        return match ($this) {
-            self::ALPHA => 'b18b0e98ff0fa9a06ca91cc2c82e419d',
-            self::BETA => '1af6809ef47844c7ead44f8f65edf0ff',
-            self::GAMMA => 'fe13f014b4871c474e74322e5ecc0dbd',
-            self::DELTA => 'fe13f014b4871c474e74322e5ecc0dbd',
         };
     }
 }

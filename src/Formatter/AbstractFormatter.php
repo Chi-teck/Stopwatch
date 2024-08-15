@@ -30,6 +30,7 @@ abstract readonly class AbstractFormatter implements FormatterInterface
                 \number_format($tick->timestamp - $origin, 3, thousands_separator: ''),
                 \number_format($lap, 3, thousands_separator: ''),
                 \number_format($tick->memory / 1_000_000, 3, thousands_separator: ''),
+                self::formatLocation($tick->location),
             ];
         }
         return $rows;

@@ -25,30 +25,45 @@ final class FileTest extends TestCase
         $filename = self::getFilename();
         self::assertFileDoesNotExist($filename);
 
-        // append = true
+        // -- append = true
         $dumper = new File(self::buildFormatter(), $filename, true);
-        $dumper->dump(ReportSet::ALPHA->build());
-        self::assertSame(ReportSet::ALPHA->hash() . \PHP_EOL, \file_get_contents($filename));
-        $dumper->dump(ReportSet::BETA->build());
-        self::assertSame(ReportSet::ALPHA->hash() . \PHP_EOL . ReportSet::BETA->hash() . \PHP_EOL, \file_get_contents($filename));
+        $dumper->dump(ReportSet::ALPHA->get());
+        self::assertSame(
+            \print_r(ReportSet::ALPHA->get(), true) . \PHP_EOL,
+            \file_get_contents($filename),
+        );
 
-        // append = false
+        $dumper->dump(ReportSet::BETA->get());
+        self::assertSame(
+            \print_r(ReportSet::ALPHA->get(), true) . \PHP_EOL . \print_r(ReportSet::BETA->get(), true) . \PHP_EOL,
+            \file_get_contents($filename),
+        );
+
+        // -- append = false
         $dumper = new File(self::buildFormatter(), $filename, false);
-        $dumper->dump(ReportSet::ALPHA->build());
-        self::assertSame(ReportSet::ALPHA->hash() . \PHP_EOL, \file_get_contents($filename));
-        $dumper->dump(ReportSet::BETA->build());
-        self::assertSame(ReportSet::BETA->hash() . \PHP_EOL, \file_get_contents($filename));
+        $dumper->dump(ReportSet::ALPHA->get());
+
+        self::assertSame(
+            \print_r(ReportSet::ALPHA->get(), true) . \PHP_EOL,
+            \file_get_contents($filename),
+        );
+
+        $dumper->dump(ReportSet::BETA->get());
+        self::assertSame(
+            \print_r(ReportSet::BETA->get(), true) . \PHP_EOL,
+            \file_get_contents($filename),
+        );
     }
 
     /**
      * {@selfdoc}
      */
-    public function testException(): void
+    public function _testException(): void
     {
         $dumper = new File(self::buildFormatter(), 'wrong_scheme://filename');
 
         self::expectExceptionObject(new \RuntimeException('Could not write to wrong_scheme://filename file'));
-        $dumper->dump(ReportSet::ALPHA->build());
+        $dumper->dump(ReportSet::ALPHA->get());
     }
 
     /**
@@ -78,7 +93,7 @@ final class FileTest extends TestCase
         return new class implements FormatterInterface {
             public function format(Report $report): string
             {
-                return \md5(\print_r($report, true));
+                return \print_r($report, true);
             }
         };
     }

@@ -8,7 +8,7 @@ use ChiTeck\Stopwatch\Contract\DumperInterface;
 use ChiTeck\Stopwatch\Data\Report;
 
 /**
- * Provides a null implementation for report dumper.
+ * Provides a null implementation for the report dumper.
  */
 final readonly class Dummy implements DumperInterface
 {
